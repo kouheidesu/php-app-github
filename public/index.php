@@ -1,6 +1,4 @@
 <?php
-$port = getenv('PORT') ?: 8080;
-echo "Using port: " . $port;
 
 
 use Illuminate\Foundation\Application;
