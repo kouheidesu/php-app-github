@@ -1,9 +1,9 @@
 <?php
-// データベース接続設定
-$host = "localhost";
-$user = "root"; // 自分のDBユーザー名
-$pass = ""; // DBのパスワード
-$dbname = "todo_app";
+// // データベース接続設定
+// $host = "localhost";
+// $user = "root"; // 自分のDBユーザー名
+// $pass = ""; // DBのパスワード
+// $dbname = "todo_app";
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
