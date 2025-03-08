@@ -1,5 +1,6 @@
 <?php
-echo "Hello, World!";
+phpinfo();
+
 
 
 // use Illuminate\Foundation\Application;
