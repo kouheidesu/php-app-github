@@ -4,39 +4,28 @@ $host = "eb-production-7efd.up.railway.app";
 $user = "root"; // 自分のDBユーザー名
 $pass = "XTMCRVDQMIHTkFffrZOJgYSwUyWFlAPi"; // DBのパスワード
 $dbname = "railway";
+$port = 3306; // Railwayのポート番号
 
-$conn = new mysqli($host, $user, $pass, $dbname);
-if ($conn->connect_error) {
-    die("データベース接続失敗: " . $conn->connect_error);
+// DB接続
+try {
+    $pdo = new PDO("mysql:host=$host;port=$port;dbname=$db;charset=utf8", $user, $pass);
+} catch (PDOException $e) {
+    exit('DB接続エラー: ' . $e->getMessage());
 }
 
-// タスク追加
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task'])) {
-    $task = $conn->real_escape_string($_POST['task']);
-    $sql = "INSERT INTO todos (task) VALUES ('$task')";
-    $conn->query($sql);
-    header("Location: index.php");
-    exit();
+// 投稿処理
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $name = htmlspecialchars($_POST["name"]);
+    $message = htmlspecialchars($_POST["message"]);
+    if ($name && $message) {
+        $stmt = $pdo->prepare("INSERT INTO posts (name, message, created_at) VALUES (?, ?, NOW())");
+        $stmt->execute([$name, $message]);
+    }
 }
 
-// タスク削除
-if (isset($_GET['delete'])) {
-    $id = intval($_GET['delete']);
-    $conn->query("DELETE FROM todos WHERE id = $id");
-    header("Location: index.php");
-    exit();
-}
-
-// タスク完了・未完了の切り替え
-if (isset($_GET['complete'])) {
-    $id = intval($_GET['complete']);
-    $conn->query("UPDATE todos SET completed = NOT completed WHERE id = $id");
-    header("Location: index.php");
-    exit();
-}
-
-// タスクリスト取得
-$result = $conn->query("SELECT * FROM todos ORDER BY created_at DESC");
+// 投稿一覧取得
+$stmt = $pdo->query("SELECT * FROM posts ORDER BY created_at DESC");
+$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -44,119 +33,92 @@ $result = $conn->query("SELECT * FROM todos ORDER BY created_at DESC");
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDoリスト</title>
+    <title>投稿アプリ</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 500px;
-            margin: 20px auto;
-            text-align: center;
+            font-family: sans-serif;
+            background: #f0f0f0;
+            padding: 2rem;
         }
 
-        h1 {
-            color: #333;
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         form {
-            margin-bottom: 20px;
+            margin-bottom: 2rem;
         }
 
-        input[type="text"] {
-            padding: 8px;
-            width: 70%;
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         button {
-            padding: 8px 15px;
-            background: #28a745;
+            margin-top: 1rem;
+            padding: 0.7rem 1.5rem;
+            background: #4caf50;
             color: white;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
         }
 
-        ul {
-            list-style: none;
-            padding: 0;
+        .post {
+            border-bottom: 1px solid #ddd;
+            padding: 1rem 0;
         }
 
-        li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #f4f4f4;
-            padding: 10px;
-            margin: 5px 0;
+        .post:last-child {
+            border-bottom: none;
         }
 
-        .completed {
-            text-decoration: line-through;
-            color: gray;
+        .post .name {
+            font-weight: bold;
         }
 
-        .delete {
-            background: red;
-            border: none;
-            color: white;
-            padding: 5px;
-            cursor: pointer;
+        .post .date {
+            color: #888;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 
 <body>
+    <div class="container">
+        <h2>投稿フォーム</h2>
+        <form method="POST">
+            <label>名前：</label>
+            <input type="text" name="name" required>
+            <label>メッセージ：</label>
+            <textarea name="message" rows="4" required></textarea>
+            <button type="submit">投稿</button>
+        </form>
 
-    <h1>ToDoリスト</h1>
-
-    <!-- タスク追加フォーム -->
-    <form action="index.php" method="POST">
-        <input type="text" name="task" required placeholder="新しいタスクを入力">
-        <button type="submit">追加</button>
-    </form>
-
-    <!-- タスクリスト表示 -->
-    <ul>
-        <?php while ($row = $result->fetch_assoc()): ?>
-            <li>
-                <span class="<?= $row['completed'] ? 'completed' : '' ?>">
-                    <?= htmlspecialchars($row['task']) ?>
-                </span>
-                <div>
-                    <a href="?complete=<?= $row['id'] ?>">
-                        <button><?= $row['completed'] ? "未完了" : "完了" ?></button>
-                    </a>
-                    <a href="?delete=<?= $row['id'] ?>">
-                        <button class="delete">削除</button>
-                    </a>
+        <h3>投稿一覧</h3>
+        <div id="posts">
+            <?php foreach ($posts as $post): ?>
+                <div class="post">
+                    <div class="name"><?= htmlspecialchars($post['name']) ?></div>
+                    <div class="date"><?= $post['created_at'] ?></div>
+                    <div class="message"><?= nl2br(htmlspecialchars($post['message'])) ?></div>
                 </div>
-            </li>
-        <?php endwhile; ?>
-    </ul>
+            <?php endforeach; ?>
+        </div>
+    </div>
 
+    <script>
+        // 必要に応じてJSを追加できます（例：バリデーション、動的更新など）
+    </script>
 </body>
 
 </html>
-
-<?php $conn->close(); ?>
-
-
-
-
-<!-- // use Illuminate\Foundation\Application;
-// use Illuminate\Http\Request;
-
-// define('LARAVEL_START', microtime(true));
-
-// // Determine if the application is in maintenance mode...
-// if (file_exists($maintenance = __DIR__ . '/../storage/framework/maintenance.php')) {
-// require $maintenance;
-// }
-
-// // Register the Composer autoloader...
-// require __DIR__ . '/../vendor/autoload.php';
-
-// // Bootstrap Laravel and handle the request...
-// /** @var Application $app */
-// $app = require_once __DIR__ . '/../bootstrap/app.php';
-
-// $app->handleRequest(Request::capture()); -->
