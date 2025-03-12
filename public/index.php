@@ -1,6 +1,6 @@
 <?php
 // データベース接続設定
-$host = "127.0.0.1";
+$host = "eb-production-7efd.up.railway.app";
 $user = "root"; // 自分のDBユーザー名
 $pass = "XTMCRVDQMIHTkFffrZOJgYSwUyWFlAPi"; // DBのパスワード
 $dbname = "railway";
