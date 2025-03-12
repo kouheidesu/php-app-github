@@ -3,7 +3,7 @@
 $host = "eb-production-7efd.up.railway.app";
 $user = "root"; // 自分のDBユーザー名
 $pass = "XTMCRVDQMIHTkFffrZOJgYSwUyWFlAPi"; // DBのパスワード
-$dbname = "railway";
+$db = "railway";
 $port = 3306; // Railwayのポート番号
 
 // DB接続
