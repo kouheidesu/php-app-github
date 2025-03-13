@@ -1,10 +1,11 @@
 <?php
 // データベース接続設定
-$host = "eb-production-7efd.up.railway.app";
+$host = "yamanote.proxy.rlwy.net";
 $user = "root"; // 自分のDBユーザー名
 $pass = "XTMCRVDQMIHTkFffrZOJgYSwUyWFlAPi"; // DBのパスワード
 $db = "railway";
-$port = 3306; // Railwayのポート番号
+$port = 35586; // Railwayのポート番号
+$dsn = "mysql://root:XTMCRVDQMIHTkFffrZOJgYSwUyWFlAPi@yamanote.proxy.rlwy.net:35586/railway";
 
 // DB接続
 try {
