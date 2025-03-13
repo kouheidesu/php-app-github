@@ -5,7 +5,7 @@ $user = "root"; // 自分のDBユーザー名
 $pass = "XTMCRVDQMIHTkFffrZOJgYSwUyWFlAPi"; // DBのパスワード
 $db = "railway";
 $port = 35586; // Railwayのポート番号
-$dsn = "mysql://root:XTMCRVDQMIHTkFffrZOJgYSwUyWFlAPi@yamanote.proxy.rlwy.net:35586/railway";
+$dsn = "mysql:host=yamanote.proxy.rlwy.net;port=35586;dbname=railway;charset=utf8mb4";
 
 // DB接続
 try {
