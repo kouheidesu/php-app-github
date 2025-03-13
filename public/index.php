@@ -9,7 +9,7 @@ $dsn = "mysql://root:XTMCRVDQMIHTkFffrZOJgYSwUyWFlAPi@yamanote.proxy.rlwy.net:35
 
 // DB接続
 try {
-    $pdo = new PDO("mysql:host=$host;port=$port;dbname=$db;charset=utf8", $user, $pass);
+    $pdo = new PDO($dsn, $user, $pass);
 } catch (PDOException $e) {
     exit('DB接続エラー: ' . $e->getMessage());
 }
@@ -17,15 +17,15 @@ try {
 // 投稿処理
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = htmlspecialchars($_POST["name"]);
-    $message = htmlspecialchars($_POST["message"]);
-    if ($name && $message) {
-        $stmt = $pdo->prepare("INSERT INTO posts (name, message, created_at) VALUES (?, ?, NOW())");
-        $stmt->execute([$name, $message]);
+    $task = htmlspecialchars($_POST["task"]);
+    if ($name && $task) {
+        $stmt = $pdo->prepare("INSERT INTO user_table (name, task, completed, created_at) VALUES (?, ?, 0, NOW())");
+        $stmt->execute([$name, $task]);
     }
 }
 
 // 投稿一覧取得
-$stmt = $pdo->query("SELECT * FROM posts ORDER BY created_at DESC");
+$stmt = $pdo->query("SELECT * FROM user_table ORDER BY created_at DESC");
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -34,7 +34,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <head>
     <meta charset="UTF-8">
-    <title>投稿アプリ</title>
+    <title>投稿アプリ（user_table版）</title>
     <style>
         body {
             font-family: sans-serif;
@@ -100,8 +100,8 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <form method="POST">
             <label>名前：</label>
             <input type="text" name="name" required>
-            <label>メッセージ：</label>
-            <textarea name="message" rows="4" required></textarea>
+            <label>タスク：</label>
+            <textarea name="task" rows="4" required></textarea>
             <button type="submit">投稿</button>
         </form>
 
@@ -111,15 +111,11 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="post">
                     <div class="name"><?= htmlspecialchars($post['name']) ?></div>
                     <div class="date"><?= $post['created_at'] ?></div>
-                    <div class="message"><?= nl2br(htmlspecialchars($post['message'])) ?></div>
+                    <div class="message"><?= nl2br(htmlspecialchars($post['task'])) ?></div>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
-
-    <script>
-        // 必要に応じてJSを追加できます（例：バリデーション、動的更新など）
-    </script>
 </body>
 
 </html>
