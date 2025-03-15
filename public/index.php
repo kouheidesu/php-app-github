@@ -15,7 +15,7 @@ $response = $kernel->handle(
 // データベース接続設定
 $dsn = config('custom.dsn');
 $user = config('custom.username');
-$pass = config('custom.password');
+$pass = trim(config('custom.password'));
 
 // DB接続
 try {
