@@ -4,6 +4,11 @@
 // $pass = "XTMCRVDQMIHTkFffrZOJgYSwUyWFlAPi"; // DBのパスワード
 // $dsn = "mysql:host=yamanote.proxy.rlwy.net;port=35586;dbname=railway;charset=utf8mb4";
 
+require __DIR__ . '/../vendor/autoload.php';
+
+// Laravel初期化（ここでサービスプロバイダも登録される）
+$app = require_once __DIR__ . '/../bootstrap/app.php';
+
 $dsn = config('custom.dsn');
 $user = config('custom.username');
 $pass = config('custom.password');
