@@ -1,9 +1,9 @@
 <?php
 
-// ローカルでアプリを使用したい場合以下をコメントアウト解除
-// require __DIR__ . '/../vendor/autoload.php';
-// $app = require_once __DIR__ . '/../bootstrap/app.php';
+require __DIR__ . '/../vendor/autoload.php';
+$app = require_once __DIR__ . '/../bootstrap/app.php';
 
+// ローカルでアプリを使用したい場合以下をコメントアウト解除
 // use Illuminate\Contracts\Http\Kernel;
 // use Illuminate\Http\Request;
 
