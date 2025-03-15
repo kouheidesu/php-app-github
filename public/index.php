@@ -12,6 +12,8 @@ $response = $kernel->handle(
     $request = Request::capture()
 );
 
+var_dump($dsn);
+echo $dsn;
 
 // データベース接続設定
 $dsn = config('custom.dsn');
