@@ -12,6 +12,7 @@ $response = $kernel->handle(
     $request = Request::capture()
 );
 
+
 // データベース接続設定
 $dsn = config('custom.dsn');
 $user = config('custom.username');
