@@ -12,15 +12,15 @@ $response = $kernel->handle(
     $request = Request::capture()
 );
 
-var_dump($dsn);
-echo $dsn;
+// ローカルサーバーでDB情報を使用したい場合
+// $dsn = config('custom.dsn');
+// $user = config('custom.username');
+// $pass = trim(config('custom.password'));
 
-// データベース接続設定
-$dsn = config('custom.dsn');
-var_dump($dsn);
-echo $dsn;
-$user = config('custom.username');
-$pass = trim(config('custom.password'));
+// railwayで環境変数を使用する場合
+$dsn = env('MY_CUSTOM_DSN');
+$user = env('DB_USERNAME');
+$pass = env('DB_PASSWORD');
 
 // DB接続
 try {
