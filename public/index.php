@@ -4,12 +4,18 @@
 // $pass = "XTMCRVDQMIHTkFffrZOJgYSwUyWFlAPi"; // DBのパスワード
 // $dsn = "mysql:host=yamanote.proxy.rlwy.net;port=35586;dbname=railway;charset=utf8mb4";
 
-define('LARAVEL_START', microtime(true));
-
 require __DIR__ . '/../vendor/autoload.php';
-
-// Laravel初期化（ここでサービスプロバイダも登録される）
 $app = require_once __DIR__ . '/../bootstrap/app.php';
+
+use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Http\Request;
+
+$kernel = $app->make(Kernel::class);
+
+$response = $kernel->handle(
+    $request = Request::capture()
+);
+
 
 $dsn = config('custom.dsn');
 $user = config('custom.username');
