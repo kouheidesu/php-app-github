@@ -1,16 +1,17 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
-$app = require_once __DIR__ . '/../bootstrap/app.php';
+// ローカルでアプリを使用したい場合以下をコメントアウト解除
+// require __DIR__ . '/../vendor/autoload.php';
+// $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-use Illuminate\Contracts\Http\Kernel;
-use Illuminate\Http\Request;
+// use Illuminate\Contracts\Http\Kernel;
+// use Illuminate\Http\Request;
 
-$kernel = $app->make(Kernel::class);
+// $kernel = $app->make(Kernel::class);
 
-$response = $kernel->handle(
-    $request = Request::capture()
-);
+// $response = $kernel->handle(
+//     $request = Request::capture()
+// );
 
 // ローカルサーバーでDB情報を使用したい場合
 // $dsn = config('custom.dsn');
