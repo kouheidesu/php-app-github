@@ -1,11 +1,12 @@
 <?php
 // データベース接続設定
-// $host = "yamanote.proxy.rlwy.net";
-$user = "root"; // 自分のDBユーザー名
-$pass = "XTMCRVDQMIHTkFffrZOJgYSwUyWFlAPi"; // DBのパスワード
-// $db = "railway";
-// $port = 35586; // Railwayのポート番号
-$dsn = "mysql:host=yamanote.proxy.rlwy.net;port=35586;dbname=railway;charset=utf8mb4";
+// $user = "root"; // 自分のDBユーザー名
+// $pass = "XTMCRVDQMIHTkFffrZOJgYSwUyWFlAPi"; // DBのパスワード
+// $dsn = "mysql:host=yamanote.proxy.rlwy.net;port=35586;dbname=railway;charset=utf8mb4";
+
+$dsn = config('custom.dsn');
+$user = config('custom.username');
+$pass = config('custom.password');
 
 // DB接続
 try {
