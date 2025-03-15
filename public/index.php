@@ -3,6 +3,7 @@
 // $user = "root"; // 自分のDBユーザー名
 // $pass = "XTMCRVDQMIHTkFffrZOJgYSwUyWFlAPi"; // DBのパスワード
 // $dsn = "mysql:host=yamanote.proxy.rlwy.net;port=35586;dbname=railway;charset=utf8mb4";
+define('LARAVEL_START', microtime(true));
 
 require __DIR__ . '/../vendor/autoload.php';
 
