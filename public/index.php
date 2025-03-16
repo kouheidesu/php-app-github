@@ -1,9 +1,9 @@
 <?php
 
-// require __DIR__ . '/../vendor/autoload.php';
-// $app = require_once __DIR__ . '/../bootstrap/app.php';
-
-
+// 外部コード読み込み
+require __DIR__ . '/../vendor/autoload.php';
+// インスタンス作成
+$app = require_once __DIR__ . '/../bootstrap/app.php';
 
 // ローカルでアプリを使用したい場合以下をコメントアウト解除
 // use Illuminate\Contracts\Http\Kernel;
@@ -25,12 +25,13 @@
 // $user = env('DB_USERNAME');
 // $pass = env('DB_PASSWORD');
 
-echo ("hello");
+
+// Kernelインターフェース使用
+use Illuminate\Contracts\Http\Kernel;
+// Requestオブジェクト使用
+use Illuminate\Http\Request;
 
 
-// use Illuminate\Contracts\Http\Kernel;
-// use Illuminate\Http\Request;
-
-// $kernel = $app->make(Kernel::class);
-// $response = $kernel->handle(Request::capture())->send();
-// $kernel->terminate(Request::capture(), $response);
+$kernel = $app->make(Kernel::class);
+$response = $kernel->handle(Request::capture())->send();
+$kernel->terminate(Request::capture(), $response);
