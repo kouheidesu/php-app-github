@@ -36,3 +36,7 @@ print("hello world");
 // $kernel = $app->make(Kernel::class);
 // $response = $kernel->handle(Request::capture())->send();
 // $kernel->terminate(Request::capture(), $response);
+
+$request = Request::capture();
+$response = $kernel->handle($request)->send();
+$kernel->terminate($request, $response);
