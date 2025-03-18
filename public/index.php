@@ -31,7 +31,8 @@ use Illuminate\Contracts\Http\Kernel;
 // Requestオブジェクト使用
 use Illuminate\Http\Request;
 
+print("hello world");
 
-$kernel = $app->make(Kernel::class);
-$response = $kernel->handle(Request::capture())->send();
-$kernel->terminate(Request::capture(), $response);
+// $kernel = $app->make(Kernel::class);
+// $response = $kernel->handle(Request::capture())->send();
+// $kernel->terminate(Request::capture(), $response);
