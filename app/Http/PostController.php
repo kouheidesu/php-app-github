@@ -9,8 +9,9 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = DB::table('user_table')->orderBy('created_at', 'desc')->get();
-        return view('posts.index', compact('posts'));
+        return 'PostControllerのindexは動いています';
+        // $posts = DB::table('user_table')->orderBy('created_at', 'desc')->get();
+        // return view('posts.index', compact('posts'));
     }
 
     public function store(Request $request)
