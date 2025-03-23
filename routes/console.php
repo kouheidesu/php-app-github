@@ -9,6 +9,6 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 
-Route::get('/', function () {
-    return 'Laravel動作テストOK！';
-});
+// Route::get('/', function () {
+//     return 'Laravel動作テストOK！';
+// });

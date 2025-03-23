@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Stylish Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-indigo-600">MyPortfolio</h1>
+      <nav class="space-x-6">
+        <a href="#home" class="text-sm hover:text-indigo-500">Home</a>
+        <a href="#about" class="text-sm hover:text-indigo-500">About</a>
+        <a href="#contact" class="text-sm hover:text-indigo-500">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-center">
+    <div>
+      <h2 class="text-4xl md:text-6xl font-bold mb-4">こんにちは、私はWebクリエイター</h2>
+      <p class="text-lg mb-6">HTML / Tailwind CSS / JavaScriptでサイト制作中</p>
+      <button onclick="openModal()" class="bg-white text-indigo-600 font-semibold px-6 py-2 rounded-full hover:bg-gray-100 transition">
+        お問い合わせ
+      </button>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h3 class="text-3xl font-bold mb-6 text-indigo-600">About Me</h3>
+      <p class="text-gray-700 text-lg leading-relaxed">
+        Web制作が大好きです。UIデザイン、フロントエンド開発、ユーザー体験を大切にしています。
+        TailwindCSSとJavaScriptを使って、シンプルで魅力的なサイトを作るのが得意です。
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white text-center py-6">
+    <p>&copy; 2025 MyPortfolio. All rights reserved.</p>
+  </footer>
+
+  <!-- Contact Modal -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-lg w-11/12 max-w-md p-6 relative">
+      <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl">&times;</button>
+      <h4 class="text-xl font-semibold text-indigo-600 mb-4">お問い合わせ</h4>
+      <form>
+        <input type="text" placeholder="お名前" class="w-full mb-3 border border-gray-300 p-2 rounded" required>
+        <input type="email" placeholder="メールアドレス" class="w-full mb-3 border border-gray-300 p-2 rounded" required>
+        <textarea placeholder="メッセージ" class="w-full mb-3 border border-gray-300 p-2 rounded h-24" required></textarea>
+        <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700">送信</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function openModal() {
+      document.getElementById("modal").classList.remove("hidden");
+    }
+    function closeModal() {
+      document.getElementById("modal").classList.add("hidden");
+    }
+  </script>
+
+</body>
+</html>
