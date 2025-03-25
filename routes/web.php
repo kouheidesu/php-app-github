@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::post('/', [PostController::class, 'index']);
+Route::get('/', [PostController::class, 'index']);
 Route::post('/', [PostController::class, 'store']);
 
 
